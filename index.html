@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data Display</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: darkcyan;
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 1rem 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background-color: darkolivegreen;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+        }
+        .output {
+            margin-top: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+            overflow:hidden
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>API Data Display</h1>
+    </header>
+    
+    <main>
+        <div class="container">
+            <div class="output">
+                <h2>Access Token:</h2>
+                <div id="token"></div>
+            </div>
+            <div class="output">
+                <h2>Scope:</h2>
+                <div id="scope"></div>
+            </div>
+            <div class="output">
+                <h2>Expires In:</h2>
+                <div id="expire1"></div>
+            </div>
+            <div class="output">
+                <h2>Token Type:</h2>
+                <div id="tokentype1"></div>
+            </div>
+            <div class="output">
+                <h2>ID</h2>
+                <div id="id_1"></div>
+            </div>
+            <div class="output">
+                <h2>Status</h2>
+                <div id="status1"></div>
+            </div>
+            <div class="output">
+                <h2>Name</h2>
+                <div id="name1"></div>
+            </div>
+            <div class="output">
+                <h2>Symbol</h2>
+                <div id="symbol1"></div>
+            </div>
+            <div class="output">
+                <h2>Type </h2>
+                <div id="type1"></div>
+            </div>
+            <div class="output">
+                <h2>URL </h2>
+                <div id="url1"></div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        async function fetchData() {
+            const url = 'https://bravenewcoin.p.rapidapi.com/oauth/token';
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-RapidAPI-Key': '8c552cb099msh7d3c35e6a865ec9p1d46bejsn538fe0087377',
+                    'X-RapidAPI-Host': 'bravenewcoin.p.rapidapi.com'
+                },
+                body: JSON.stringify({
+                    audience: 'https://api.bravenewcoin.com',
+                    client_id: 'oCdQoZoI96ERE9HY3sQ7JmbACfBf55RY',
+                    grant_type: 'client_credentials'
+                })
+            };
+
+            try {
+                const response = await fetch(url, options);
+                const result = await response.json();
+
+                const {access_token, scope, expires_in , token_type} = result;
+                document.getElementById('token').textContent = access_token;
+                document.getElementById('scope').textContent = scope;
+                document.getElementById('expire1').textContent = expires_in;
+                document.getElementById('tokentype1').textContent = token_type;
+                
+            } catch (error) {
+                console.error(error);
+            }
+        }
+
+        fetchData();
+    </script>
+    <script>
+        async function fetchData1() {
+            const url1 = 'https://bravenewcoin.p.rapidapi.com/asset/f1ff77b6-3ab4-4719-9ded-2fc7e71cff1f';
+            const options = {
+                method: 'GET',
+                headers: {
+                    'X-RapidAPI-Key': '8c552cb099msh7d3c35e6a865ec9p1d46bejsn538fe0087377',
+                    'X-RapidAPI-Host': 'bravenewcoin.p.rapidapi.com'
+                }
+            };
+
+            try {
+                
+                const response = await fetch(url1, options);
+                const result1 = await response.json();
+
+                const {id, name, status, symbol, type, url} = result1;
+                document.getElementById('id_1').textContent = id;
+                document.getElementById('status1').textContent = status;
+                document.getElementById('name1').textContent = name;
+                document.getElementById('symbol1').textContent =symbol;
+                document.getElementById('type1').textContent =type;
+                document.getElementById('url1').textContent =url;
+                
+            } catch (error) {
+                console.error(error);
+            }
+            
+        }
+        fetchData1();
+        
+    </script>
+</body>
+</html>
